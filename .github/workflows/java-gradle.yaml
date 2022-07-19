@@ -1,0 +1,38 @@
+name: Java Gradle - build an app
+
+on:
+  workflow_call:
+    inputs:
+      java-version:
+        description: Java version that will be used to build an app
+        default: '17'
+        required: true
+        type: string
+      jdk-distribution:
+        description: Java distribution used to build an app
+        default: 'temurin'
+        required: true
+        type: string
+      path:
+        description: Path to the root folder of a Gradle project
+        default: '.'
+        required: true
+        type: string
+
+jobs:
+  qa:
+    name: Build & unit test Java app
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+
+      - uses: actions/setup-java@v3
+        with:
+          distribution: ${{ inputs.jdk-distribution }}
+          java-version: ${{ inputs.java-version }}
+
+      - name: Build & unit test app
+        run: ${{ inputs.path }}/gradlew :clean :build
+
+      
