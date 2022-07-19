@@ -6,17 +6,17 @@ on:
       java-version:
         description: Java version that will be used to build an app
         default: '17'
-        required: true
+        required: false
         type: string
       jdk-distribution:
         description: Java distribution used to build an app
         default: 'temurin'
-        required: true
+        required: false
         type: string
       path:
         description: Path to the root folder of a Gradle project
         default: '.'
-        required: true
+        required: false
         type: string
 
 jobs:
