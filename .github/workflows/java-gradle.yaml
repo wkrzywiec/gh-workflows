@@ -33,6 +33,8 @@ jobs:
           java-version: ${{ inputs.java-version }}
 
       - name: Build & unit test app
-        run: ${{ inputs.path }}/gradlew :clean :build
+        run: |
+          chmod +x ${{ inputs.path }}/gradlew
+          ${{ inputs.path }}/gradlew :clean :build --info
 
       
