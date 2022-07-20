@@ -21,6 +21,8 @@ on:
     secrets:
       sonarToken:
         required: false
+      githubToken:
+        required: false
 
 jobs:
   qa:
@@ -35,7 +37,21 @@ jobs:
           distribution: ${{ inputs.jdk-distribution }}
           java-version: ${{ inputs.java-version }}
 
-      - name: Build & unit test app
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      
+      - name: Cache Gradle packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: ${{ runner.os }}-gradle
+
+      - name: Build 🏗️ & unit test app 🧪
         run: |
           chmod +x ${{ inputs.path }}/gradlew
           ${{ inputs.path }}/gradlew :clean :build --info
@@ -46,4 +62,7 @@ jobs:
 
       - name: Sonar Cloud
         run: |
-          ${{ inputs.path }}/gradlew :sonarqube -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.sonarToken }} -Dsonar.verbose=true --warning-mode all --debug
+          ${{ inputs.path }}/gradlew :sonarqube -Dsonar.host.url=https://sonarcloud.io -Dsonar.verbose=true --warning-mode all --debug
+        env:
+          GITHUB_TOKEN: ${{ secrets.githubToken }}
+          SONAR_TOKEN: ${{ secrets.sonarToken }}
