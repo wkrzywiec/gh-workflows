@@ -1,4 +1,4 @@
-name: Java Gradle - build an app
+name: Java Gradle - test app
 
 on:
   workflow_call:
@@ -18,11 +18,6 @@ on:
         default: '.'
         required: false
         type: string
-    secrets:
-      sonarToken:
-        required: false
-      githubToken:
-        required: false
 
 jobs:
   qa:
@@ -36,13 +31,6 @@ jobs:
         with:
           distribution: ${{ inputs.jdk-distribution }}
           java-version: ${{ inputs.java-version }}
-
-      - name: Cache SonarCloud packages
-        uses: actions/cache@v1
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
       
       - name: Cache Gradle packages
         uses: actions/cache@v1
@@ -56,13 +44,6 @@ jobs:
           chmod +x ${{ inputs.path }}/gradlew
           ${{ inputs.path }}/gradlew :clean :build --info
 
-      - name: Generate test coverage report 🔎
+      - name: Generate test coverage report
         run: |
           ${{ inputs.path }}/gradlew :jacocoTestReport :jacocoTestCoverageVerification --info
-
-      - name: Sonar Cloud 🌟
-        run: | 
-          ${{ inputs.path }}/gradlew :sonarqube -Dsonar.host.url=https://sonarcloud.io -Dsonar.verbose=true --info
-        env:
-          GITHUB_TOKEN: ${{ secrets.githubToken }}
-          SONAR_TOKEN: ${{ secrets.sonarToken }}
