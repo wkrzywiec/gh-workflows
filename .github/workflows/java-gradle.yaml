@@ -40,8 +40,10 @@ jobs:
           chmod +x ${{ inputs.path }}/gradlew
           ${{ inputs.path }}/gradlew :clean :build --info
 
+      - name: Generate Test coverage report
+        run: |
+          ${{ inputs.path }}/gradlew :jacocoTestReport
+
       - name: Sonar Cloud
         run: |
           ${{ inputs.path }}/gradlew :sonarqube -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.sonarToken }} -Dsonar.verbose=true
-
-      
