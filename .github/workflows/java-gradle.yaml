@@ -46,4 +46,4 @@ jobs:
 
       - name: Sonar Cloud
         run: |
-          ${{ inputs.path }}/gradlew :sonarqube -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.sonarToken }} -Dsonar.verbose=true --warning-mode all
+          ${{ inputs.path }}/gradlew :sonarqube -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.sonarToken }} -Dsonar.verbose=true --warning-mode all --debug
