@@ -18,6 +18,9 @@ on:
         default: '.'
         required: false
         type: string
+    secrets:
+      sonarToken:
+        required: false
 
 jobs:
   qa:
@@ -36,5 +39,9 @@ jobs:
         run: |
           chmod +x ${{ inputs.path }}/gradlew
           ${{ inputs.path }}/gradlew :clean :build --info
+
+      - name: Sonar Cloud
+        run: |
+          ${{ inputs.path }}/gradlew :sonarqube -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.sonarToken }} -Dsonar.verbose=true
 
       
