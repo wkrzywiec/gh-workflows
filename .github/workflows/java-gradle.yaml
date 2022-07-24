@@ -30,7 +30,7 @@ on:
 
 jobs:
   qa:
-    name: Build & test ${{ inputs.appName }}
+    name: ${{ inputs.appName }} - Build & test 
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
@@ -72,7 +72,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.sonarToken }}
 
   local-dev:
-    name: Run locally ${{ inputs.appName }}
+    name: ${{ inputs.appName }} - Run locally
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
@@ -85,6 +85,10 @@ jobs:
 
       - name: Install Task
         uses: arduino/setup-task@v1
+
+      - name: Add permission to gradlew
+        run: |
+          chmod +x ./gradlew
 
       - name: Spin up infra & app
         run: |
