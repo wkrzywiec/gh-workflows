@@ -73,7 +73,7 @@ jobs:
 
   local-dev:
     name: ${{ inputs.appName }} - Run locally
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
@@ -86,10 +86,10 @@ jobs:
       - name: Install Task
         uses: arduino/setup-task@v1
 
-      # - name: Add permission to gradlew
-      #   run: |
-      #     chmod +x ./gradlew
+      - name: Add permission to gradlew
+        run: |
+          chmod +x ./gradlew
 
-      - name: Spin up infra & app
+      - name: Run infra & app
         run: |
           task local
