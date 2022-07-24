@@ -30,7 +30,7 @@ on:
 
 jobs:
   qa:
-    name: Build & test Java app
+    name: Build & test ${{ inputs.appName }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
@@ -72,7 +72,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.sonarToken }}
 
   local-dev:
-    name: Check running locally
+    name: Run locally ${{ inputs.appName }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
