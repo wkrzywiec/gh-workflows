@@ -13,7 +13,7 @@ on:
         default: 'temurin'
         required: false
         type: string
-      appName:
+      app-name:
         description: Project name
         required: true
         type: string
@@ -30,7 +30,7 @@ on:
 
 jobs:
   qa:
-    name: ${{ inputs.appName }} - Build & test 
+    name: ${{ inputs.app-name }} - Build & test 
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️

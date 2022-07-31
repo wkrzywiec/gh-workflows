@@ -13,6 +13,10 @@ on:
         default: 'temurin'
         required: false
         type: string
+      app-name:
+        description: Project name
+        required: true
+        type: string
       path:
         description: Path to the root folder of a Gradle project
         default: '.'
@@ -21,7 +25,7 @@ on:
 
 jobs:
   qa:
-    name: Build & unit test Java app
+    name: ${{ inputs.app-name }} - Build & test 
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
