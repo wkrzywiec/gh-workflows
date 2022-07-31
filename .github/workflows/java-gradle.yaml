@@ -58,11 +58,11 @@ jobs:
       - name: Build 🏗️ & unit test app 🧪
         run: |
           chmod +x ${{ inputs.path }}/gradlew
-          ${{ inputs.path }}/gradlew :clean :build --info
+          ${{ inputs.path }}/gradlew :clean :check --info
 
       - name: Generate test coverage report 🔎
         run: |
-          ${{ inputs.path }}/gradlew :jacocoTestReport :jacocoTestCoverageVerification --info
+          ${{ inputs.path }}/gradlew :jacocoTestReport --info
 
       - name: Sonar Cloud 🌟
         run: | 
