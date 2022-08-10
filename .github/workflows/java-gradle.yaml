@@ -62,7 +62,7 @@ jobs:
 
       - name: Generate test coverage report 🔎
         run: |
-          ${{ inputs.path }}/gradlew jacocoTestReport jacocoTestCoverageVerification --info
+          ${{ inputs.path }}/gradlew codeCoverageReport --info
 
       - name: Sonar Cloud 🌟
         run: | 
