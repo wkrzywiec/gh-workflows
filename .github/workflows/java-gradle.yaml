@@ -85,6 +85,13 @@ jobs:
         run: |
           chmod +x ${{ inputs.path }}/gradlew
 
+      - name: Run Snyk & upload to results to the cloud
+        uses: snyk/actions/gradle-jdk17@master
+        env:
+          SNYK_TOKEN: ${{ secrets.snykToken }}
+        with:
+          command: monitor
+
       - name: Run Snyk to check for vulnerabilities 👮‍♀️
         uses: snyk/actions/gradle-jdk17@master
         continue-on-error: true # To make sure that SARIF upload gets called
