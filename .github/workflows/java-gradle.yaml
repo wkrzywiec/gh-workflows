@@ -27,6 +27,8 @@ on:
         required: false
       githubToken:
         required: false
+      snykToken:
+        required: false
 
 jobs:
   qa:
@@ -72,11 +74,11 @@ jobs:
           SONAR_TOKEN: ${{ secrets.sonarToken }}
 
 
-      - name: Run Snyk to check for vulnerabilities
+      - name: Run Snyk to check for vulnerabilities 👮‍♀️
         uses: snyk/actions/gradle@master
         continue-on-error: true # To make sure that SARIF upload gets called
         env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          SNYK_TOKEN: ${{ secrets.snykToken }}
         with:
           args: --severity-threshold=high --sarif-file-output=snyk.sarif
 
