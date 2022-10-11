@@ -81,6 +81,10 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
 
+      - name: Gradlew permissions
+        run: |
+          chmod +x ${{ inputs.path }}/gradlew
+
       - name: Run Snyk to check for vulnerabilities 👮‍♀️
         uses: snyk/actions/gradle-jdk17@master
         continue-on-error: true # To make sure that SARIF upload gets called
