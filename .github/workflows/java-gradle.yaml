@@ -67,7 +67,7 @@ jobs:
         if: success() || failure()
         with:
           name: JUnit Tests
-          path: ${{ inputs.path }}/build/tests-results/test/TEST-*.xml
+          path: ${{ inputs.path }}/build/test-results/test/TEST-*.xml
           reporter: java-junit
 
       - name: Generate test coverage report 🔎
