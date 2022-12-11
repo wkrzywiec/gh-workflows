@@ -48,6 +48,14 @@ jobs:
           chmod +x ${{ inputs.path }}/gradlew
           ${{ inputs.path }}/gradlew clean check --info
 
-      - name: Generate test coverage report
+      - name: Test report
+        uses: dorny/test-reporter@v1
+        if: success() || failure()
+        with:
+          name: JUnit Tests
+          path: ${{ inputs.path }}/build/tests-results/test/TEST-*.xml
+          reporter: java-junit
+
+      - name: Test coverage report
         run: |
           ${{ inputs.path }}/gradlew jacocoTestReport jacocoTestCoverageVerification --info
